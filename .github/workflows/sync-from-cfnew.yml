@@ -1,17 +1,17 @@
 name: 从 cfnew 同步 Releases
-
 on:
   workflow_dispatch:  # 手动触发
   schedule:
     - cron: '0 */6 * * *'  # 每6小时自动检查一次
-
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 jobs:
   sync-release:
     runs-on: ubuntu-latest
     
     steps:
       - name: 检出仓库
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       
@@ -171,4 +171,3 @@ jobs:
           else
             echo "- 状态: ⏭️ 版本相同，无需更新" >> $GITHUB_STEP_SUMMARY
           fi
-
